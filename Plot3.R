@@ -26,6 +26,7 @@ emissions_BC_type$type <- as.factor(emissions_BC_type$type)
 #Load ggplot2 library
 library(ggplot2)
 
+#create plot with ggplot
 plot3 <- ggplot(emissions_BC_type, aes(year, emissions, group = type))
 plot3 + geom_point(aes(color = type), size = 4, alpha = 0.7) + 
         geom_line(aes(color = type), alpha = 0.7) +
