@@ -20,10 +20,10 @@ total_emissions_BC <- ddply(BC_data, .(year), summarise,
 png(file = "plot2.png") #create png file named plot1.png
 
 #make graph that will be saved to the png file
-plot2 <- barplot(total_emissions_BC$emissions, 
-                 las = 2, xlab = "Year", 
+plot2 <- plot(total_emissions_BC$year,total_emissions_BC$emissions, 
+                 xlab = "Year", 
                  ylab = "Total PM 2.5 Emissions in Kilotons",
                  main = "Total PM 2.5 Emissions in \nBaltimore City by Year")
-axis(1, at = plot2, labels = total_emissions_BC$year) #add labels to x-axis
+lines(total_emissions_BC$year,total_emissions_BC$emissions)
 
 dev.off()

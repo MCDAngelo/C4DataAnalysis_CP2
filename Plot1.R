@@ -24,9 +24,9 @@ total_emissions <- ddply(NEI, .(year), summarise,
 png(file = "plot1.png") #create png file named plot1.png
 
 #make graph that will be saved to the png file
-plot1 <- barplot(total_emissions$emissions, 
-        las = 2, xlab = "Year", ylab = "Total PM 2.5 Emissions in Kilotons",
-        main = "Total PM 2.5 Emissions from All Sources by Year")
-axis(1, at = plot1, labels = total_emissions$year) #add labels to x-axis
+plot1 <- plot(total_emissions$year, total_emissions$emissions, 
+                 xlab = "Year", ylab = "Total PM 2.5 Emissions in Kilotons",
+                 main = "Total PM 2.5 Emissions from All Sources by Year")
+lines(total_emissions$year, total_emissions$emissions)
 
 dev.off()
