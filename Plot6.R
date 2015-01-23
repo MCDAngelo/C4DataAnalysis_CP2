@@ -30,20 +30,23 @@ veh_EI <- subset(NEI,
 library(plyr)
 
 #create sums of overall vehicle emissions by year using ddply
-#divide sum by 1000 to convert to kilotons
 veh_emissions <- ddply(veh_EI, .(year, fips), summarise,
-                       emissions = sum(Emissions)/1000)
+                       emissions = sum(Emissions))
 #Add in variable with city names
 veh_emissions$City <- rep(c("Los Angeles", "Baltimore City"),4)
 
 #Load ggplot2 library
 library(ggplot2)
 
-#create plot with ggplot
-plot6 <- ggplot(veh_emissions, aes(year, emissions, Group = City))
-plot6 + geom_point(aes(color = City), size = 4, alpha = 0.7) + 
+#create plot with ggplot, but used facets to show the emissions
+#separately for each city and with different scales for each one
+#as LA had larger starting values and when plotted on the same scale
+#the different starting values minimized the changes in Baltimore City
+plot6 <- ggplot(veh_emissions, aes(year, emissions)) #, Group = City))
+plot6 + geom_point(size = 4, alpha = 0.7) + #aes(color = City),
         geom_line(alpha = 0.7) +
-        ylab("PM 2.5 Emissions from Motor Vehicles in Kilotons") +
+        facet_grid(City~. ,scales ="free") +
+        ylab("PM 2.5 Emissions") +
         xlab("Year") +
         ggtitle("PM 2.5 Emissions from Motor Vehicles in Baltimore City and Los Angeles") +
         theme_bw()
